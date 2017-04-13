@@ -32,7 +32,7 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		this.name = name;
 	}
 	
-	public String getTestCaseListID(String id) {
+	public String getTestCaseListID() {
 		return testCaseListID;
 	}
 	
