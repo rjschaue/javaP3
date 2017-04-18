@@ -39,7 +39,12 @@ public class TestCase extends Observable implements Serializable {
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
+		if (description == null || description.equals("") || description.trim().isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.description = description;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
@@ -53,7 +58,12 @@ public class TestCase extends Observable implements Serializable {
 	 * @param expectedResults the expectedResults to set
 	 */
 	public void setExpectedResults(String expectedResults) {
+		if (expectedResults == null || expectedResults.equals("") || expectedResults.trim().isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.expectedResults = expectedResults;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
@@ -67,7 +77,14 @@ public class TestCase extends Observable implements Serializable {
 	 * @param actualResults the actualResults to set
 	 */
 	public void setActualResults(String actualResults) {
-		this.actualResults = actualResults;
+		if (testedStatus == true) {
+			if (actualResults == null || actualResults.equals("") || actualResults.trim().isEmpty()) {
+				throw new IllegalArgumentException();
+			}
+			this.actualResults = actualResults;
+			setChanged();
+			notifyObservers(this);
+		}
 	}
 	
 	/**
@@ -81,7 +98,12 @@ public class TestCase extends Observable implements Serializable {
 	 * @param creationDateTime the creationDateTime to set
 	 */
 	public void setCreationDateTime(Date creationDateTime) {
+		if (creationDateTime == null) {
+			throw new IllegalArgumentException();
+		}
 		this.creationDateTime = creationDateTime;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
@@ -95,7 +117,12 @@ public class TestCase extends Observable implements Serializable {
 	 * @param lastTestedDateTime the lastTestedDateTime to set
 	 */
 	public void setLastTestedDateTime(Date lastTestedDateTime) {
+		if (testedStatus != false && lastTestedDateTime == null) {
+			throw new IllegalArgumentException();
+		}
 		this.lastTestedDateTime = lastTestedDateTime;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public boolean tested() {
@@ -107,6 +134,8 @@ public class TestCase extends Observable implements Serializable {
 	 */
 	public void setTestedStatus(boolean testedStatus) {
 		this.testedStatus = testedStatus;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public boolean pass() {
@@ -118,13 +147,20 @@ public class TestCase extends Observable implements Serializable {
 	 */
 	public void setPass(boolean pass) {
 		this.pass = pass;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
 	 * @param t the testingType to set
 	 */
 	public void setTestingType(TestingType t) {
+		if (t == null) {
+			throw new IllegalArgumentException();
+		}
 		this.testingType = t;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
@@ -145,7 +181,12 @@ public class TestCase extends Observable implements Serializable {
 	 * @param id the testCaseID to set
 	 */
 	private void setTestCaseID(String id) {
+		if (id == null || id.equals("")) {
+			throw new IllegalArgumentException();
+		}
 		this.testCaseID = id;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	@Override
@@ -157,46 +198,10 @@ public class TestCase extends Observable implements Serializable {
 		if (getClass() != o.getClass())
 			return false;
 		TestCase other = (TestCase) o;
-		if (actualResults == null) {
-			if (other.actualResults != null)
-				return false;
-		} else if (!actualResults.equals(other.actualResults))
-			return false;
-		if (creationDateTime == null) {
-			if (other.creationDateTime != null)
-				return false;
-		} else if (!creationDateTime.equals(other.creationDateTime))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (expectedResults == null) {
-			if (other.expectedResults != null)
-				return false;
-		} else if (!expectedResults.equals(other.expectedResults))
-			return false;
-		if (lastTestedDateTime == null) {
-			if (other.lastTestedDateTime != null)
-				return false;
-		} else if (!lastTestedDateTime.equals(other.lastTestedDateTime))
-			return false;
-		if (pass != other.pass)
-			return false;
-		if (testCaseID == null) {
-			if (other.testCaseID != null)
-				return false;
-		} else if (!testCaseID.equals(other.testCaseID))
-			return false;
-		if (testedStatus != other.testedStatus)
-			return false;
-		if (testingType == null) {
-			if (other.testingType != null)
-				return false;
-		} else if (!testingType.equals(other.testingType))
-			return false;
-		return true;
+		if (other.getTestCaseId().equals(this.testCaseId)) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -216,6 +221,6 @@ public class TestCase extends Observable implements Serializable {
 	}
 	
 	public int compareTo(TestCase c) {
-		return 0;
+		return this.lastTestedDateTime.compareTo(c.getLastTestedDateTime);
 	}
 }
