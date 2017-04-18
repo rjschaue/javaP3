@@ -198,7 +198,7 @@ public class TestCase extends Observable implements Serializable {
 		if (getClass() != o.getClass())
 			return false;
 		TestCase other = (TestCase) o;
-		if (other.getTestCaseId().equals(testCaseId)) {
+		if (other.getTestCaseID().equals(testCaseID)) {
 			return true;
 		}
 		return false;
