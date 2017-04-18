@@ -198,7 +198,7 @@ public class TestCase extends Observable implements Serializable {
 		if (getClass() != o.getClass())
 			return false;
 		TestCase other = (TestCase) o;
-		if (other.getTestCaseId().equals(this.testCaseId)) {
+		if (other.getTestCaseId().equals(testCaseId)) {
 			return true;
 		}
 		return false;
@@ -221,6 +221,6 @@ public class TestCase extends Observable implements Serializable {
 	}
 	
 	public int compareTo(TestCase c) {
-		return this.lastTestedDateTime.compareTo(c.getLastTestedDateTime);
+		return this.lastTestedDateTime.compareTo(c.getLastTestedDateTime());
 	}
 }
