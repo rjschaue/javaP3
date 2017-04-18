@@ -16,7 +16,9 @@ public class TestingType extends Observable implements Serializable {
 	private String testingTypeID;
 	
 	public TestingType (String id, String name, String desc) {
-		//TODO create constructor
+		setTestingTypeID(id);
+		setName(name);
+		setDescription(desc);
 	}
 	
 	public String getName() {
@@ -24,7 +26,12 @@ public class TestingType extends Observable implements Serializable {
 	}
 	
 	public void setName(String name) {
+		if (name == null || name.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.name = name;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public String getDescription() {
@@ -33,6 +40,8 @@ public class TestingType extends Observable implements Serializable {
 	
 	public void setDescription(String desc) {
 		this.description = desc;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	public String getTestingTypeID() {
@@ -40,38 +49,31 @@ public class TestingType extends Observable implements Serializable {
 	}
 	
 	private void setTestingTypeID(String id) {
+		if (id == null || id.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.testingTypeID = id;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(Object o) {
+		if (this == o)
 			return true;
-		if (obj == null)
+		if (o == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (getClass() != o.getClass())
 			return false;
-		TestingType other = (TestingType) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (testingTypeID == null) {
-			if (other.testingTypeID != null)
-				return false;
-		} else if (!testingTypeID.equals(other.testingTypeID))
-			return false;
-		return true;
+		TestingType other = (TestingType) o;
+		if (testingTypeID.equals(other.getTestingTypeID())) {
+			return true;
+		}
+		return false;
 	}
 	
 	public int compareTo(TestingType testingType) {
-		return 0;
+		return testingTypeID.compareTo(testingType.getTestingTypeID());
 	}
 	
 	@Override
