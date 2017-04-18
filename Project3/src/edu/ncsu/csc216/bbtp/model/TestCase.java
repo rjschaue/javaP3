@@ -25,7 +25,15 @@ public class TestCase extends Observable implements Serializable {
 	
 	public TestCase(String id, String desc, TestingType testingType, Date creationDateTime, 
 			String expectedResults, boolean tested, Date lastTestedDate, String actualResults, boolean pass) {
-		//TODO implement constructor
+		setTestCaseID(id);
+		setDescription(desc);
+		setTestingType(testingType);
+		setCreationDateTime(creationDateTime);
+		setExpectedResults(expectedResults);
+		testedStatus = tested;
+		setLastTestedDate(lastTestedDate);
+		setActualResults(actualResults);
+		this.pass = pass;		
 	}
 	
 	/**
@@ -39,7 +47,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
-		if (description == null || description.equals("") || description.trim().isEmpty()) {
+		if (description == null || description.isEmpty() || description.trim().isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.description = description;
@@ -58,7 +66,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @param expectedResults the expectedResults to set
 	 */
 	public void setExpectedResults(String expectedResults) {
-		if (expectedResults == null || expectedResults.equals("") || expectedResults.trim().isEmpty()) {
+		if (expectedResults == null || expectedResults.isEmpty() || expectedResults.trim().isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.expectedResults = expectedResults;
@@ -78,7 +86,7 @@ public class TestCase extends Observable implements Serializable {
 	 */
 	public void setActualResults(String actualResults) {
 		if (testedStatus == true) {
-			if (actualResults == null || actualResults.equals("") || actualResults.trim().isEmpty()) {
+			if (actualResults == null || actualResults.isEmpty() || actualResults.trim().isEmpty()) {
 				throw new IllegalArgumentException();
 			}
 			this.actualResults = actualResults;
@@ -126,7 +134,7 @@ public class TestCase extends Observable implements Serializable {
 	}
 	
 	public boolean tested() {
-		return false;
+		return testedStatus;
 	}
 	
 	/**
@@ -139,7 +147,7 @@ public class TestCase extends Observable implements Serializable {
 	}
 	
 	public boolean pass() {
-		return false;
+		return pass;
 	}
 	
 	/**
@@ -181,7 +189,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @param id the testCaseID to set
 	 */
 	private void setTestCaseID(String id) {
-		if (id == null || id.equals("")) {
+		if (id == null || id.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.testCaseID = id;
