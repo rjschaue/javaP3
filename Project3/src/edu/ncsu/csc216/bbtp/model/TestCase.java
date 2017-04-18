@@ -31,7 +31,7 @@ public class TestCase extends Observable implements Serializable {
 		setCreationDateTime(creationDateTime);
 		setExpectedResults(expectedResults);
 		testedStatus = tested;
-		setLastTestedDate(lastTestedDate);
+		setLastTestedDateTime(lastTestedDate);
 		setActualResults(actualResults);
 		this.pass = pass;		
 	}
