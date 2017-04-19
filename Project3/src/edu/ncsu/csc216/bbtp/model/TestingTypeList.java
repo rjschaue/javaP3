@@ -14,12 +14,13 @@ import edu.ncsu.csc216.bbtp.util.ArrayList;
  */
 public class TestingTypeList extends Observable implements Tabular, Serializable, Observer {
 	private static final long serialVersionUID = 984509L;
-	private String name;
+	private String name = "Testing Types";
 	private int nextTestingTypeNum;
 	private ArrayList list;
 	
 	public TestingTypeList() {
-		
+		list = new ArrayList();
+		nextTestingTypeNum = 1;
 	}
 	
 	public String getName() {
@@ -27,21 +28,40 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 	}
 	
 	public boolean addTestingType(String name, String desc) {
-		TestingType t = new TestingType("TT" + nextTestingTypeNum, name, desc);
+		TestingType t = new TestingType("TT" + getNextTestingTypeNum(), name, desc);
+		list.add(getNextTestingTypeNum(), t);
 		t.addObserver(this);
-		return false;
+		setChanged();
+		notifyObservers();
+		incNextTestingTypeNum();
+		return true;
 	}
 	
 	public TestingType getTestingTypeAt(int index) {
-		return null;
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		return (TestingType) list.get(index);
 	}
 	
 	public int indexOf(String id) {
-		return 0;
+		for (int i = 0; i < list.size(); i++) {
+			TestingType type = (TestingType) list.get(i);
+			if (type.getTestingTypeID().equals(id)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public int indexOfName(String name) {
-		return 0;
+		for (int i = 0; i < list.size(); i++) {
+			TestingType type = (TestingType) list.get(i);
+			if (type.getName().equals(name)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public int size() {
@@ -53,10 +73,27 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 	}
 	
 	public TestingType removeTestingTypeAt(int index) {
-		return null;
+		if (index < 0 || index > size()) {
+			throw new IllegalArgumentException();
+		}
+		TestingType type = (TestingType) list.remove(index);
+		setChanged();
+		notifyObservers();
+		type.deleteObserver(this);
+		return type;
 	}
 	
 	public boolean removeTestingType(String id) {
+		for (int i = 0; i < list.size(); i++) {
+			TestingType type = (TestingType) list.get(i);
+			if (type.getTestingTypeID().equals(id)) {
+				list.remove(i);
+				setChanged();
+				notifyObservers();
+				type.deleteObserver(this);
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -65,13 +102,19 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 	}
 	
 	private void incNextTestingTypeNum() {
-		
+		nextTestingTypeNum++;
 	}
 	
 	@Override
 	public Object[][] get2DArray() {
-		// TODO Auto-generated method stub
-		return null;
+		Object[][] array = new Object[list.size()][3];
+		for (int i = 0; i < list.size(); i++) {
+			TestingType type = (TestingType) list.get(i);
+			array[i][0] = type.getTestingTypeID();
+			array[i][1] = type.getName();
+			array[i][2] = type.getDescription();
+;		}
+		return array;
 	}
 	
 	public void update(Observable o, Object arg) {
