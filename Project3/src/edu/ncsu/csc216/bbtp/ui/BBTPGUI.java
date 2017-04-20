@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.util.Observer;
 
 import edu.ncsu.csc216.bbtp.*;
 import edu.ncsu.csc216.bbtp.model.TestCaseList;

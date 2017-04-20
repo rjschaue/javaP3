@@ -32,7 +32,7 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 		list.add(getNextTestingTypeNum(), t);
 		t.addObserver(this);
 		setChanged();
-		notifyObservers();
+		notifyObservers(this);
 		incNextTestingTypeNum();
 		return true;
 	}
@@ -78,7 +78,7 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 		}
 		TestingType type = (TestingType) list.remove(index);
 		setChanged();
-		notifyObservers();
+		notifyObservers(this);
 		type.deleteObserver(this);
 		return type;
 	}
@@ -89,7 +89,7 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 			if (type.getTestingTypeID().equals(id)) {
 				list.remove(i);
 				setChanged();
-				notifyObservers();
+				notifyObservers(this);
 				type.deleteObserver(this);
 				return true;
 			}
@@ -118,6 +118,6 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 	}
 	
 	public void update(Observable o, Object arg) {
-		
+		o.notifyObservers(arg);
 	}
 }
