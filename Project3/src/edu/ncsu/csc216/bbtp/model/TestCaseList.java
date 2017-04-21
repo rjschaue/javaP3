@@ -67,7 +67,7 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 			t = new TestCase(testCaseID, desc, testingType, creationDateTime, expectedResults, tested, lastTestedDate, actualResults, pass);
 			t.addObserver(this);
 			if (lastTestedDate == null) {
-				list.add(t);
+				list.add(0, t);
 			} else {
 				for (int i = 0; i < size(); i++) {
 					TestCase newCase = (TestCase) list.get(i);

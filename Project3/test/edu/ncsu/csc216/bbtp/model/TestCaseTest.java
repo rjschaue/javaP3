@@ -5,20 +5,39 @@ package edu.ncsu.csc216.bbtp.model;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.Test;
 
 /**
- * @author Joey
- *
+ * Test class for TestCase
+ * @author Joey Schauer
  */
 public class TestCaseTest {
+	private static final String TEST_CASE_ID = "TC1";
+	private static final Date CREATION_DATE_TIME = new Date();
+	private static final String DESCRIPTION = "Description";
+	private static final String EXPECTED_RESULTS = "It will pass";
+	private static final String ACTUAL_RESULTS = "It passed";
+	private static final Date LAST_TESTED_DATE_TIME = new Date();
+	private static final boolean TESTED_STATUS = true;
+	private static final boolean PASS = true;
+	private static final TestingType TESTING_TYPE = new TestingType("Functional", "It is functional", "TT1");
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#hashCode()}.
 	 */
 	@Test
 	public void testHashCode() {
-		fail("Not yet implemented");
+		TestCase testCase1 = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		TestCase testCase2 = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		TestCase testCase3 = new TestCase("TC3", DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		
+		assertEquals(testCase1.hashCode(), testCase2.hashCode());
+		assertNotEquals(testCase1.hashCode(), testCase3.hashCode());
 	}
 
 	/**
@@ -26,15 +45,35 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testTestCase() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#getDescription()}.
-	 */
-	@Test
-	public void testGetDescription() {
-		fail("Not yet implemented");
+		TestCase testCase = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		assertEquals(testCase.getDescription(), DESCRIPTION);
+		assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		assertEquals(testCase.tested(), TESTED_STATUS);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		assertEquals(testCase.pass(), PASS);
+		
+		//Test passing a null id
+		try {
+			testCase = new TestCase(null, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+					LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+			fail();
+		} catch (Exception e) {
+			assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		}
+		
+		//Test passing a empty string id
+		try {
+			testCase = new TestCase("", DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+					LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+			fail();
+		} catch (Exception e) {
+			assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		}
 	}
 
 	/**
@@ -42,15 +81,42 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testSetDescription() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#getExpectedResults()}.
-	 */
-	@Test
-	public void testGetExpectedResults() {
-		fail("Not yet implemented");
+		TestCase testCase = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		assertEquals(testCase.getDescription(), DESCRIPTION);
+		assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		assertEquals(testCase.tested(), TESTED_STATUS);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		assertEquals(testCase.pass(), PASS);
+		
+		//Test null
+		try {
+			testCase.setDescription(null);
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getDescription(), DESCRIPTION);
+		}
+		
+		//Test an empty string
+		try {
+			testCase.setDescription("");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getDescription(), DESCRIPTION);
+		}
+		
+		//Test a string with only spaces
+		try {
+			testCase.setDescription("          ");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getDescription(), DESCRIPTION);
+		}
+		
+		//Test valid description
+		testCase.setDescription("New description");
+		assertEquals(testCase.getDescription(), "New description");
 	}
 
 	/**
@@ -58,15 +124,42 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testSetExpectedResults() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#getActualResults()}.
-	 */
-	@Test
-	public void testGetActualResults() {
-		fail("Not yet implemented");
+		TestCase testCase = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		assertEquals(testCase.getDescription(), DESCRIPTION);
+		assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		assertEquals(testCase.tested(), TESTED_STATUS);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		assertEquals(testCase.pass(), PASS);
+		
+		//Test null 
+		try {
+			testCase.setExpectedResults(null);
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		}
+		
+		//Test an empty string
+		try {
+			testCase.setExpectedResults("");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		}
+		
+		//Test a string with only spaces
+		try {
+			testCase.setExpectedResults("          ");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		}
+		
+		//Test valid string
+		testCase.setExpectedResults("New expected results");
+		assertEquals(testCase.getExpectedResults(), "New expected results");
 	}
 
 	/**
@@ -74,15 +167,42 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testSetActualResults() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#getCreationDateTime()}.
-	 */
-	@Test
-	public void testGetCreationDateTime() {
-		fail("Not yet implemented");
+		TestCase testCase = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		assertEquals(testCase.getDescription(), DESCRIPTION);
+		assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		assertEquals(testCase.tested(), TESTED_STATUS);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		assertEquals(testCase.pass(), PASS);
+		
+		//Test null 
+		try {
+			testCase.setActualResults(null);
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		}
+		
+		//Test an empty string
+		try {
+			testCase.setActualResults("");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		}
+		
+		//Test a string with only spaces
+		try {
+			testCase.setActualResults("          ");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		}
+		
+		//Test valid string
+		testCase.setActualResults("New actual results");
+		assertEquals(testCase.getActualResults(), "New actual results");
 	}
 
 	/**
@@ -90,15 +210,29 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testSetCreationDateTime() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#getLastTestedDateTime()}.
-	 */
-	@Test
-	public void testGetLastTestedDateTime() {
-		fail("Not yet implemented");
+		TestCase testCase = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		assertEquals(testCase.getDescription(), DESCRIPTION);
+		assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		assertEquals(testCase.tested(), TESTED_STATUS);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		assertEquals(testCase.pass(), PASS);
+		
+		//Test null 
+		try {
+			testCase.setCreationDateTime(null);
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		}
+		
+		//test valid date
+		Date newDate = new Date();
+		testCase.setCreationDateTime(newDate);
+		assertEquals(testCase.getCreationDateTime(), newDate);
 	}
 
 	/**
@@ -106,39 +240,37 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testSetLastTestedDateTime() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#tested()}.
-	 */
-	@Test
-	public void testTested() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#setTestedStatus(boolean)}.
-	 */
-	@Test
-	public void testSetTestedStatus() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#pass()}.
-	 */
-	@Test
-	public void testPass() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#setPass(boolean)}.
-	 */
-	@Test
-	public void testSetPass() {
-		fail("Not yet implemented");
+		TestCase testCase = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		assertEquals(testCase.getDescription(), DESCRIPTION);
+		assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		assertEquals(testCase.tested(), TESTED_STATUS);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		assertEquals(testCase.pass(), PASS);
+		
+		//test null date for tested case
+		testCase.setLastTestedDateTime(null);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		
+		//Test null date for not tested case
+		testCase.setTestedStatus(false);
+		testCase.setLastTestedDateTime(null);
+		assertNull(testCase.getLastTestedDateTime());
+		
+		//test valid date
+		Date newDate = new Date();
+		testCase.setLastTestedDateTime(newDate);
+		assertEquals(testCase.getLastTestedDateTime(), newDate);
+		
+		//Test pass
+		assertTrue(testCase.pass());
+		testCase.setPass(false);
+		assertFalse(testCase.pass());
+		
 	}
 
 	/**
@@ -146,23 +278,30 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testSetTestingType() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#getTestingType()}.
-	 */
-	@Test
-	public void testGetTestingType() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestCase#getTestCaseID()}.
-	 */
-	@Test
-	public void testGetTestCaseID() {
-		fail("Not yet implemented");
+		TestCase testCase = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		assertEquals(testCase.getTestCaseID(), TEST_CASE_ID);
+		assertEquals(testCase.getDescription(), DESCRIPTION);
+		assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		assertEquals(testCase.getCreationDateTime(), CREATION_DATE_TIME);
+		assertEquals(testCase.getExpectedResults(), EXPECTED_RESULTS);
+		assertEquals(testCase.tested(), TESTED_STATUS);
+		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		assertEquals(testCase.getActualResults(), ACTUAL_RESULTS);
+		assertEquals(testCase.pass(), PASS);
+		
+		//Test null testing type
+		try {
+			testCase.setTestingType(null);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getTestingType(), TESTING_TYPE);
+		}
+		
+		//Test valid testing type
+		TestingType newType = new TestingType("New Type", "It's new", "TT2");
+		testCase.setTestingType(newType);
+		assertEquals(testCase.getTestingType(), newType);
 	}
 
 	/**
@@ -170,7 +309,19 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		TestCase testCase1 = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		TestCase testCase2 = new TestCase(TEST_CASE_ID, "New description", TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		TestCase testCase3 = new TestCase("TC3", DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		
+		//Test for true and false equal values
+		assertTrue(testCase1.equals(testCase1));
+		assertTrue(testCase1.equals(testCase2));
+		assertFalse(testCase1.equals(testCase3));
+		assertFalse(testCase1.equals(null));
+		assertFalse(testCase1.equals("String"));
 	}
 
 	/**
@@ -178,7 +329,13 @@ public class TestCaseTest {
 	 */
 	@Test
 	public void testCompareTo() {
-		fail("Not yet implemented");
+		TestCase testCase1 = new TestCase(TEST_CASE_ID, DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		TestCase testCase2 = new TestCase(TEST_CASE_ID, "New description", TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, 
+				LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS);
+		
+		//Test exact comparison
+		assertEquals(testCase1.compareTo(testCase2), 0);
 	}
 
 }
