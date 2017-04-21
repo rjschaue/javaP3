@@ -11,15 +11,26 @@ import java.util.Observer;
 import edu.ncsu.csc216.bbtp.util.LinkedList;
 
 /**
+ * Stores a list of test cases
  * @author Joey Schauer
  */
 public class TestCaseList extends Observable implements Tabular, Serializable, Observer {
+	/** the serial version UID for TestCaseList */
 	private static final long serialVersionUID = 98734509L;
+	/** the name of the test case list */
 	private String name;
+	/** the next test case number for the test case list */
 	private int nextTestCaseNum;
+	/** the test case list id for the list */
 	private String testCaseListID;
+	/** the linked list of test cases */
 	private LinkedList list;
 	
+	/**
+	 * The constructor for TestCaseList
+	 * @param name the name of the test case list
+	 * @param TestCaseListID the id for the test case list
+	 */
 	public TestCaseList(String name, String TestCaseListID) {
 		setName(name);
 		nextTestCaseNum = 1;
@@ -27,10 +38,19 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		list = new LinkedList();
 	}
 	
+	/**
+	 * Returns the name of the test case list
+	 * @return the name of the test case list
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Sets the test case list to the given name
+	 * @param name the name to set for the test case list
+	 * @throws IllegalArgumentException if name is null or empty string
+	 */
 	public void setName(String name) {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException();
@@ -40,10 +60,19 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		notifyObservers(this);
 	}
 	
+	/**
+	 * Returns the test case list id
+	 * @return the test case list id
+	 */
 	public String getTestCaseListID() {
 		return testCaseListID;
 	}
 	
+	/**
+	 * Sets the test case list id to the given string
+	 * @param id the string to set the test case list id to
+	 * @throws IllegalArgumentException if the id is null or empty
+	 */
 	private void setTestCaseListID(String id) {
 		if (id == null || id.isEmpty()) {
 			throw new IllegalArgumentException();
@@ -51,14 +80,33 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		this.testCaseListID = id;
 	}
 	
+	/**
+	 * Returns the next test case number
+	 * @return the next test case number
+	 */
 	private int getNextTestCaseNum() {
 		return nextTestCaseNum;
 	}
 	
+	/**
+	 * Increments the next test case number
+	 */
 	private void incNextTestCaseNum() {
 		nextTestCaseNum++;
 	}
 	
+	/**
+	 * Adds a test case to the list with the given parameters
+	 * @param desc the description of the test case
+	 * @param testingType the type for the test case
+	 * @param creationDateTime the creatione date and time for the test case
+	 * @param expectedResults the expected results of the test case
+	 * @param tested true if the test case has been tested
+	 * @param lastTestedDate the last tested date for the test case
+	 * @param actualResults the actual results of the test case
+	 * @param pass true if the test case has passed it's tests
+	 * @return true if the test case is successfully added
+	 */
 	public boolean addTestCase(String desc, TestingType testingType, Date creationDateTime, 
 			String expectedResults, boolean tested, Date lastTestedDate, String actualResults, boolean pass) {
 		TestCase t;
@@ -88,6 +136,12 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		return true;
 	}
 	
+	/**
+	 * Returns the test case at the given index
+	 * @param index the index to get the test case from
+	 * @return the test case at the given index
+	 * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to size
+	 */
 	public TestCase getTestCaseAt(int index) {
 		if (index < 0 || index >= size()) {
 			throw new IndexOutOfBoundsException();
@@ -95,6 +149,11 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		return (TestCase) list.get(index);
 	}
 	
+	/**
+	 * Returns the index of the test case with the given id
+	 * @param id the id of the test case to find the index of
+	 * @return the index of the test case with the given id
+	 */
 	public int indexOf(String id) {
 		if (id == null) {
 			return -1;
@@ -108,14 +167,28 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		return -1;
 	}
 	
+	/**
+	 * Returns the size of the test case list
+	 * @return the size of the test case list
+	 */
 	public int size() {
 		return list.size();
 	}
 	
+	/**
+	 * Returns true if the test case list is empty
+	 * @return true if the test case list is empty
+	 */
 	public boolean isEmpty() {
 		return list.isEmpty();
 	}
 	
+	/**
+	 * Removes the test case at the given index from the list
+	 * @param index the index of the test case to remove
+	 * @return the removed test case
+	 * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to size
+	 */
 	public TestCase removeTestCaseAt(int index) {
 		if (index < 0 || index >= size()) {
 			throw new IndexOutOfBoundsException();
@@ -127,6 +200,11 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		return removed;
 	}
 	
+	/**
+	 * Removes the test case with the given id
+	 * @param TestCaseID the id of the test case to remove
+	 * @return true if the test case as removed
+	 */
 	public boolean removeTestCase(String TestCaseID) {
 		if (TestCaseID == null) {
 			return false;
@@ -144,6 +222,10 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		return false;
 	}
 
+	/**
+	 * Returns a 2 dimensional array of the test case list
+	 * @return a 2 dimensional array of the test case list
+	 */
 	@Override
 	public Object[][] get2DArray() {
 		Object[][] array;
@@ -167,6 +249,9 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 		return array;
 	}
 	
+	/**
+	 * Updates the observers for test case list
+	 */
 	public void update(Observable o, Object arg) {
 		o.notifyObservers(arg);
 	}
