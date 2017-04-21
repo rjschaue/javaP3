@@ -29,7 +29,7 @@ public class ArrayList implements List, Serializable {
 	
 	/**
 	 * The constructor for ArrayList that takes a size parameter
-	 * @param size the size for the ArrayList
+	 * @param size the capacity for the ArrayList
 	 * @throws IllegalArgumentException if the size is negative
 	 */
 	public ArrayList(int size) {
@@ -37,7 +37,7 @@ public class ArrayList implements List, Serializable {
 			throw new IllegalArgumentException();
 		}
 		list = new Object[size];
-		this.size = size;
+		size = 0;
 	}
 	
 	/**

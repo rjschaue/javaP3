@@ -146,7 +146,12 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 
 	@Override
 	public Object[][] get2DArray() {
-		Object[][] array = new Object[list.size()][9];
+		Object[][] array;
+		if (list.isEmpty()) {
+			array = new Object[0][0];
+			return array;
+		}
+		array = new Object[list.size()][9];
 		for (int i = 0; i < size(); i++) {
 			TestCase testCase = (TestCase) list.get(i);
 			array[i][0] = testCase.getTestCaseID();

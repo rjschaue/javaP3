@@ -3,6 +3,8 @@
  */
 package edu.ncsu.csc216.bbtp.ui;
 
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.EventListener;
@@ -39,19 +41,125 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 	private TestCaseData data;
 	
 	public TestCaseEditPane(TestingTypeList testingTypes) {
-		//TODO implement constructor
+		super(new GridBagLayout());
+		
+		this.data = new TestCaseData();
+		this.testingTypes = testingTypes;
+		
+		init();
 	}
 	
 	public TestCaseEditPane(TestCaseData data, TestingTypeList testingTypes) {
-		//TODO implement constructor
+		super(new GridBagLayout());
+		
+		this.data = data;
+		this.testingTypes = testingTypes;
+		
+		initView();
 	}
 	
 	private void init() {
-		//TODO implement init
+		testCaseID = new JTextField();
+		tcTestingType = new JComboBox<TestingType>();
+		for (int i = 0; i < testingTypes.size(); i++) {
+			tcTestingType.addItem(this.testingTypes.getTestingTypeAt(i));
+		}
+		expectedResults = new JTextArea();
+		actualResults = new JTextArea();
+		testCaseDescription = new JTextArea();
+		testCreationDate = new JSpinner();
+		testLastTestedDate = new JSpinner();
+		tested = new JCheckBox();
+		pass = new JCheckBox();
+		
+		JPanel pnlTestCaseEditPane = new JPanel();
+		pnlTestCaseEditPane.setLayout(new GridLayout(6, 1));
+		
+		JPanel pnlIDTypeDateTime = new JPanel();
+		pnlIDTypeDateTime.setLayout(new GridBagLayout());
+		pnlIDTypeDateTime.add(testCaseID);
+		pnlIDTypeDateTime.add(tcTestingType);
+		pnlIDTypeDateTime.add(testCreationDate);
+		
+		JPanel pnlDescription = new JPanel();
+		pnlDescription.setLayout(new GridBagLayout());
+		pnlDescription.add(testCaseDescription);
+		
+		JPanel pnlTested = new JPanel();
+		pnlTested.setLayout(new GridBagLayout());
+		pnlTested.add(tested);
+		pnlTested.add(testLastTestedDate);
+		
+		JPanel pnlExpectedResults = new JPanel();
+		pnlExpectedResults.setLayout(new GridBagLayout());
+		pnlExpectedResults.add(expectedResults);
+		
+		JPanel pnlActualResults = new JPanel();
+		pnlActualResults.setLayout(new GridBagLayout());
+		pnlActualResults.add(actualResults);
+		
+		JPanel pnlPass = new JPanel();
+		pnlPass.setLayout(new GridBagLayout());
+		pnlPass.add(pass);
+		
+		pnlTestCaseEditPane.add(pnlIDTypeDateTime);
+		pnlTestCaseEditPane.add(pnlDescription);
+		pnlTestCaseEditPane.add(pnlTested);
+		pnlTestCaseEditPane.add(pnlExpectedResults);
+		pnlTestCaseEditPane.add(pnlActualResults);
+		pnlTestCaseEditPane.add(pnlPass);
 	}
 	
 	private void initView() {
-		//TODO implement initView
+		testCaseID = new JTextField(data.getTestCaseID());
+		tcTestingType = new JComboBox<TestingType>();
+		for (int i = 0; i < testingTypes.size(); i++) {
+			tcTestingType.addItem(this.testingTypes.getTestingTypeAt(i));
+		}
+		expectedResults = new JTextArea(data.getExpectedResults());
+		actualResults = new JTextArea(data.getActualResults());
+		testCaseDescription = new JTextArea(data.getDescription());
+		testCreationDate = new JSpinner();
+		testLastTestedDate = new JSpinner();
+		tested = new JCheckBox();
+		pass = new JCheckBox();
+		
+		JPanel pnlTestCaseEditPane = new JPanel();
+		pnlTestCaseEditPane.setLayout(new GridLayout(6, 1));
+		
+		JPanel pnlIDTypeDateTime = new JPanel();
+		pnlIDTypeDateTime.setLayout(new GridBagLayout());
+		pnlIDTypeDateTime.add(testCaseID);
+		pnlIDTypeDateTime.add(tcTestingType);
+		pnlIDTypeDateTime.add(testCreationDate);
+		
+		JPanel pnlDescription = new JPanel();
+		pnlDescription.setLayout(new GridBagLayout());
+		pnlDescription.add(testCaseDescription);
+		
+		JPanel pnlTested = new JPanel();
+		pnlTested.setLayout(new GridBagLayout());
+		pnlTested.add(tested);
+		pnlTested.add(testLastTestedDate);
+		
+		JPanel pnlExpectedResults = new JPanel();
+		pnlExpectedResults.setLayout(new GridBagLayout());
+		pnlExpectedResults.add(expectedResults);
+		
+		JPanel pnlActualResults = new JPanel();
+		pnlActualResults.setLayout(new GridBagLayout());
+		pnlActualResults.add(actualResults);
+		
+		JPanel pnlPass = new JPanel();
+		pnlPass.setLayout(new GridBagLayout());
+		pnlPass.add(pass);
+		
+		pnlTestCaseEditPane.add(pnlIDTypeDateTime);
+		pnlTestCaseEditPane.add(pnlDescription);
+		pnlTestCaseEditPane.add(pnlTested);
+		pnlTestCaseEditPane.add(pnlExpectedResults);
+		pnlTestCaseEditPane.add(pnlActualResults);
+		pnlTestCaseEditPane.add(pnlPass);
 	}
 	
 	JSpinner getTestCreationDateSpinner() {
@@ -63,11 +171,11 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 	}
 	
 	Date getTestCreationDate() {
-		return null;
+		return data.getCreationDateTime();
 	}
 	
 	Date getLastTestedDate() {
-		return null;
+		return data.getLastTestedDateTime();
 	}
 	
 	JTextField getTestCaseID() {
@@ -99,7 +207,7 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 	}
 	
 	void setCreationDateTime(Date date) {
-		//TODO implement set creation date time
+		
 	}
 	
 	void setLastTestedDateTime(Date date) {
@@ -123,7 +231,7 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 	}
 	
 	void enableEdit(TestCaseData data) {
-		//TODO implement enable edit
+		
 	}
 	
 	void disableEdit() {
