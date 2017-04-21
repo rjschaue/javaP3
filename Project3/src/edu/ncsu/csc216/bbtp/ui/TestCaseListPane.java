@@ -16,15 +16,25 @@ import javax.swing.table.TableColumn;
 import edu.ncsu.csc216.bbtp.model.TestCaseList;
 
 /**
+ * This class is for the test case list pane
  * @author Joey Schauer
  */
 public class TestCaseListPane extends JScrollPane implements Serializable, Observer {
+	/** the serial version UID for TestCaseListPane */
 	private static final long serialVersionUID = -2210716111020406799L;
+	/** The test case list */
 	private TestCaseList testCases;
+	/** the table for the pane */
 	private JTable table;
+	/** the widths for the columns */
 	private int[] colWidths = { 50, 50, 50, 50, 50, 50, 50, 50, 50 };
+	/** the test case table model */
 	private TestCaseTableModel tctm;
 	
+	/** 
+	 * Constructor for TestCaseListPane
+	 * @param testCases the tests cases to set for the list pane
+	 */
 	public TestCaseListPane(TestCaseList testCases) {
 		super();
 		this.testCases = testCases;
@@ -33,14 +43,25 @@ public class TestCaseListPane extends JScrollPane implements Serializable, Obser
 		initView();
 	}
 	
+	/**
+	 * Returns the test case table model
+	 * @return the test case table model
+	 */
 	public TestCaseTableModel getTestCaseTableModel() {
 		return tctm;
 	}
 	
+	/**
+	 * Returns the table
+	 * @return the table
+	 */
 	public JTable getTable() {
 		return table;
 	}
 	
+	/**
+	 * Initializes the pane view
+	 */
 	private void initView() {
 		table = new JTable(tctm);
 		for (int i = 0; i < colWidths.length; i++) {
@@ -53,10 +74,16 @@ public class TestCaseListPane extends JScrollPane implements Serializable, Obser
 		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 	
+	/**
+	 * Clears the selection of the table
+	 */
 	public void clearSelection() {
 		table.clearSelection();
 	}
 	
+	/**
+	 * Updates the observers for the class
+	 */
 	public void update(Observable o, Object arg) {
 		if (o instanceof TestCaseList) {
             TestCaseList tcl = (TestCaseList) o;
