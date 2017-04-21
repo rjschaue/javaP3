@@ -17,18 +17,30 @@ import edu.ncsu.csc216.bbtp.model.TestingTypeList;
 import edu.ncsu.csc216.bbtp.util.ArrayList;
 
 /**
+ * The black box test plan class that handles file functions
  * @author Joey Schauer
  */
 public class BBTP extends Observable implements Serializable, Observer {
+	/** The serial version UID for BBTP */
 	private static final long serialVersionUID = 34992L;
+	/** The constant resize value for the test case list array */
 	private static final int RESIZE = 10;
+	/** The number of list in the test case list array */
 	private int numLists;
+	/** The filename of the black box test plan */
 	private String filename;
+	/** True if the BBTP has changed */
 	private boolean changed;
+	/** The next test case list number */
 	private int nextTestCaseListNum;
+	/** The array of test case lists */
 	private TestCaseList[] testCases;
+	/** The testing type list */
 	private TestingTypeList testingTypes;
 	
+	/**
+	 * The null constructor for BBTP
+	 */
 	public BBTP() {
 		testCases = new TestCaseList[RESIZE];
 		nextTestCaseListNum = 1;
@@ -42,18 +54,35 @@ public class BBTP extends Observable implements Serializable, Observer {
 		numLists = 1;
 	}
 	
+	/**
+	 * Returns the changed value
+	 * @return the changed value
+	 */
 	public boolean isChanged() {
 		return changed;
 	}
 	
+	/**
+	 * Sets changed to the given value
+	 * @param changed the value to set changed to
+	 */
 	public void setChanged(boolean changed) {
 		this.changed = changed;
 	}
 	
+	/**
+	 * Returns the filename of the BBTP
+	 * @return the filename of the BBTP
+	 */
 	public String getFilename() {
 		return filename;
 	}
 	
+	/**
+	 * Sets the BBTP filename
+	 * @param filename the filename to set
+	 * @throws IllegalArgumentException if the filename is null or an empty string
+	 */
 	public void setFilename(String filename) {
 		if (filename == null || filename.isEmpty()) {
 			throw new IllegalArgumentException();
@@ -61,18 +90,35 @@ public class BBTP extends Observable implements Serializable, Observer {
 		this.filename = filename;
 	}
 	
+	/**
+	 * Returns the next test case list number
+	 * @return the next test case list number
+	 */
 	private int getNextTestCaseListNum() {
 		return nextTestCaseListNum;
 	}
 	
+	/**
+	 * Increments the next test case list number
+	 */
 	private void incNextTestCaseListNum() {
 		nextTestCaseListNum++;
 	}
 	
+	/**
+	 * Returns the number of test case lists
+	 * @return the number of test case lists
+	 */
 	public int getNumTestCaseLists() {
 		return numLists;
 	}
 	
+	/**
+	 * Returns the test case list at the given index
+	 * @param index the index to get the test case list from
+	 * @return the test case list at the given index
+	 * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to the number of lists
+	 */
 	public TestCaseList getTestCaseList(int index) {
 		if (index < 0 || index >= numLists) {
 			throw new IndexOutOfBoundsException();
@@ -80,10 +126,18 @@ public class BBTP extends Observable implements Serializable, Observer {
 		return testCases[index];
 	}
 	
+	/**
+	 * Returns the testing type list
+	 * @return the testing type list
+	 */
 	public TestingTypeList getTestingTypeList() {
 		return testingTypes;
 	}
 	
+	/**
+	 * Adds a test case list to the array
+	 * @return the index of the added test case list
+	 */
 	public int addTestCaseList() {
 		TestCaseList newList = new TestCaseList("New List", "TCL" + getNextTestCaseListNum());
 		newList.addObserver(this);
@@ -99,6 +153,11 @@ public class BBTP extends Observable implements Serializable, Observer {
 		return index;
 	}
 	
+	/**
+	 * Removes the test case list at the given index
+	 * @param index the index to remove the test case list from
+	 * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to the number of lists
+	 */
 	public void removeTestCaseList(int index) {
 		if (index < 0 || index >= numLists) {
 			throw new IndexOutOfBoundsException();
@@ -202,8 +261,16 @@ public class BBTP extends Observable implements Serializable, Observer {
         }
     }
 	
+    /**
+     * Updates the given observable with the given object if valid
+     * @param o is the observable to check
+     * @param arg is the object to notify the observable of
+     */
 	public void update(Observable o, Object arg) {
-		o.notifyObservers(arg);
+		for (int i = 0; i < numLists; i++) {
+			testCases[i].update(o, arg);
+		}
+		testingTypes.update(o, arg);
 	}
 	
 	/**

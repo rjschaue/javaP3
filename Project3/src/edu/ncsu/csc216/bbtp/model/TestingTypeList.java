@@ -185,6 +185,9 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 	 * Updates the observers of testing type list
 	 */
 	public void update(Observable o, Object arg) {
-		o.notifyObservers(arg);
+		if (list.contains(o)) {
+			setChanged();
+			notifyObservers(arg);
+		}
 	}
 }
