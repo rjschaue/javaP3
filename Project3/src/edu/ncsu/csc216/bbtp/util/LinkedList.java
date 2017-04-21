@@ -20,7 +20,7 @@ public class LinkedList implements List, Serializable {
 	 * The null constructor for LinkedList
 	 */
 	public LinkedList() {
-		head = new Node(null, null);
+		head = null;
 	}
 	
 	/**
@@ -73,8 +73,16 @@ public class LinkedList implements List, Serializable {
 		if (o == null) {
 			return false;
 		}
-		Node newNode = new Node(o, head);
-		head = newNode;
+		Node newNode = new Node(o, null);
+		if (head == null) {
+			head = newNode;
+			return true;
+		}
+		Node current = head;
+		for (Node p = head; p != null; p = p.next) {
+			current = p;
+		}
+		current.next = newNode;
 		return true;
 	}
 
@@ -175,9 +183,6 @@ public class LinkedList implements List, Serializable {
 	@Override
 	public int indexOf(Object o) {
 		if (o == null) {
-			return -1;
-		}
-		if (!contains(o)) {
 			return -1;
 		}
 		int index = 0;
