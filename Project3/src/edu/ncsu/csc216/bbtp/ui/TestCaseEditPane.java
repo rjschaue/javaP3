@@ -24,7 +24,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentListener;
 
+import edu.ncsu.csc216.bbtp.model.TestCase;
 import edu.ncsu.csc216.bbtp.model.TestingType;
 import edu.ncsu.csc216.bbtp.model.TestingTypeList;
 
@@ -79,6 +81,8 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 		
 		this.data = data;
 		this.testingTypes = testingTypes;
+		add = false;
+		edit = false;
 		
 		init();
 	}
@@ -349,7 +353,7 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 	 * @return true if the fields are not empty
 	 */
 	boolean fieldsNotEmpty() {
-		return false;
+		return testCaseDescription.getDocument().getLength() != 0 && expectedResults.getDocument().getLength() != 0;
 	}
 	
 	/**
@@ -365,7 +369,9 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 	 * @param eventListener the event listener
 	 */
 	void addFieldListener(EventListener eventListener) {
-		//TODO Implement method
+		testCaseDescription.getDocument().addDocumentListener((DocumentListener) eventListener);
+		expectedResults.getDocument().addDocumentListener((DocumentListener) eventListener);
+		actualResults.getDocument().addDocumentListener((DocumentListener) eventListener);
 	}
 	
 	/**
@@ -388,12 +394,12 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 			pass.setEnabled(false);
 		} else {
 			testCaseID.setText(data.getTestCaseID());
-			tcTestingType.setSelectedItem(data.getTestingType());
+			tcTestingType.addItem(data.getTestingType());
 			if (data.getCreationDateTime() != null) {
-				testCreationDate.setValue(data.getCreationDateTime().toString());
+				testCreationDate.setValue(data.getCreationDateTime());
 			}
 			if (data.getLastTestedDateTime() != null) {
-				testLastTestedDate.setValue(data.getLastTestedDateTime().toString());
+				testLastTestedDate.setValue(data.getLastTestedDateTime());
 			}
 			testCaseDescription.setText(data.getDescription());
 			tested.setSelected(data.tested());
@@ -436,6 +442,18 @@ public class TestCaseEditPane extends JPanel implements Serializable, Observer {
 	 * @param arg is the object to send over
 	 */
 	public void update(Observable o, Object arg) {
-		o.notifyObservers(arg);
+		if (o instanceof TestCase) {
+			TestCase testCase = (TestCase) o;
+			data = new TestCaseData(testCase.getTestCaseID(), testCase.getDescription(), testCase.getTestingType(), testCase.getCreationDateTime(), testCase.getLastTestedDateTime(),
+					testCase.tested(), testCase.getExpectedResults(), testCase.getActualResults(), testCase.pass());
+		}
+		if (o instanceof TestingTypeList) {
+			TestingTypeList list = (TestingTypeList) o;
+			testingTypes = list;
+		}
+		if (o instanceof TestingType) {
+			TestingType type = (TestingType) o;
+			testingTypes.addTestingType(type.getName(), type.getDescription());
+		}
 	}
 }

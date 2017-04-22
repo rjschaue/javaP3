@@ -1,0 +1,35 @@
+Testing Type
+Name: Equivalence Classes
+Description: We can divide the input or output space into ranges or categories of data. We generate test cases by picking one representative value from each of the possible input ranges/categories or by picking input values that would get to a representative output value.
+
+Testing Type
+Name: Boundary Values
+Description: Boundary value analysis guides the creation of test cases at the boundaries or edges of a problem.
+
+Test Case List
+Triangle
+
+Test Case List
+Paychecks
+
+Test Case
+Test Case List: Triangle
+Description:Preconditions: Triangle program started. Enter a: 2 Enter b: 2 Enter c: 2
+Testing Type: Equivalence Classes
+Test Creation Date & Time: 3/20/17 8:00am
+Expected Results: Equilateral Triangle
+Tested: false
+Last Tested Date & Time:
+Actual Results:
+Pass:
+
+Test Case
+Test Case List: Triangle
+Description:Preconditions: Triangle program started. Enter a: 2 Enter b: 2 Enter c: 1
+Testing Type: Equivalence Classes
+Test Creation Date & Time: 3/20/17 8:00am
+Expected Results: Isosceles Triangle
+Tested: false
+Last Tested Date & Time:
+Actual Results:
+Pass:
