@@ -47,7 +47,7 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 	 */
 	public boolean addTestingType(String name, String desc) {
 		TestingType t = new TestingType("TT" + getNextTestingTypeNum(), name, desc);
-		list.add(getNextTestingTypeNum(), t);
+		list.add(getNextTestingTypeNum() - 1, t);
 		t.addObserver(this);
 		setChanged();
 		notifyObservers(this);

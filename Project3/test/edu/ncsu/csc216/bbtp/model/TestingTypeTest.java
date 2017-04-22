@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * @author Joey
- *
+ * Test class for TestingType
+ * @author Joey Schauer
  */
 public class TestingTypeTest {
 
@@ -18,7 +18,13 @@ public class TestingTypeTest {
 	 */
 	@Test
 	public void testHashCode() {
-		fail("Not yet implemented");
+		TestingType testType1 = new TestingType("T1", "Type1", "Desc1");
+		TestingType testType2 = new TestingType("T1", "Type1", "Desc1");
+		TestingType testType3 = new TestingType("T2", "Type2", "Desc2");
+		
+		//test hash code
+		assertEquals(testType1.hashCode(), testType2.hashCode());
+		assertNotEquals(testType1.hashCode(), testType3.hashCode());
 	}
 
 	/**
@@ -26,47 +32,61 @@ public class TestingTypeTest {
 	 */
 	@Test
 	public void testTestingType() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingType#getName()}.
-	 */
-	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingType#setName(java.lang.String)}.
-	 */
-	@Test
-	public void testSetName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingType#getDescription()}.
-	 */
-	@Test
-	public void testGetDescription() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingType#setDescription(java.lang.String)}.
-	 */
-	@Test
-	public void testSetDescription() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingType#getTestingTypeID()}.
-	 */
-	@Test
-	public void testGetTestingTypeID() {
-		fail("Not yet implemented");
+		TestingType testType1 = new TestingType("T1", "Type1", "Desc1");
+		
+		//test null id
+		try {
+			testType1 = new TestingType(null, "Nope", "Nope");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testType1.getTestingTypeID(), "T1");
+			assertEquals(testType1.getName(), "Type1");
+			assertEquals(testType1.getDescription(), "Desc1");
+		}
+		
+		//test empty id string
+		try {
+			testType1 = new TestingType("", "Nope", "Nope");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testType1.getTestingTypeID(), "T1");
+			assertEquals(testType1.getName(), "Type1");
+			assertEquals(testType1.getDescription(), "Desc1");
+		}
+		
+		//test null name
+		try {
+			testType1 = new TestingType("T2", null, "Nope");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testType1.getTestingTypeID(), "T1");
+			assertEquals(testType1.getName(), "Type1");
+			assertEquals(testType1.getDescription(), "Desc1");
+		}
+		
+		//test empty name string
+		try {
+			testType1 = new TestingType("T2", "", "Nope");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testType1.getTestingTypeID(), "T1");
+			assertEquals(testType1.getName(), "Type1");
+			assertEquals(testType1.getDescription(), "Desc1");
+		}
+		
+		//test null description
+		try {
+			testType1 = new TestingType("T2", "Type2", null);
+		} catch (IllegalArgumentException e) {
+			assertEquals(testType1.getTestingTypeID(), "T1");
+			assertEquals(testType1.getName(), "Type1");
+			assertEquals(testType1.getDescription(), "Desc1");
+		}
+		
+		//test empty description string
+		try {
+			testType1 = new TestingType("T2", "Type2", "");
+		} catch (IllegalArgumentException e) {
+			assertEquals(testType1.getTestingTypeID(), "T1");
+			assertEquals(testType1.getName(), "Type1");
+			assertEquals(testType1.getDescription(), "Desc1");
+		}
 	}
 
 	/**
@@ -74,7 +94,18 @@ public class TestingTypeTest {
 	 */
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		TestingType testType1 = new TestingType("T1", "Type1", "Desc1");
+		TestingType testType2 = new TestingType("T1", "Type1", "Desc1");
+		TestingType testType3 = new TestingType("T2", "Type2", "Desc2");
+		
+		//test invalid
+		assertFalse(testType1.equals(null));
+		assertFalse(testType1.equals("String"));
+		
+		//test equals
+		assertTrue(testType1.equals(testType1));
+		assertTrue(testType1.equals(testType2));
+		assertFalse(testType1.equals(testType3));
 	}
 
 	/**
@@ -82,7 +113,14 @@ public class TestingTypeTest {
 	 */
 	@Test
 	public void testCompareTo() {
-		fail("Not yet implemented");
+		TestingType testType1 = new TestingType("T1", "Type1", "Desc1");
+		TestingType testType2 = new TestingType("T1", "Type1", "Desc1");
+		TestingType testType3 = new TestingType("T2", "Type2", "Desc2");
+		
+		//test compare to
+		assertEquals(testType1.compareTo(testType2), 0);
+		assertEquals(testType1.compareTo(testType3), -1);
+		assertEquals(testType3.compareTo(testType1), 1);
 	}
 
 	/**
@@ -90,7 +128,11 @@ public class TestingTypeTest {
 	 */
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		TestingType testType1 = new TestingType("T1", "Type1", "Desc1");
+		
+		String toString = "TestingType [name=Type1, description=Desc1, testingTypeID=T1]";
+		
+		assertEquals(testType1.toString(), toString);
 	}
 
 }

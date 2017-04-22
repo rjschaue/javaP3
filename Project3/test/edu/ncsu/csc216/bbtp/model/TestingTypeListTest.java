@@ -8,33 +8,24 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * @author Joey
- *
+ * Test class for TestingTypeList
+ * @author Joey Schauer
  */
 public class TestingTypeListTest {
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingTypeList#TestingTypeList()}.
-	 */
-	@Test
-	public void testTestingTypeList() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingTypeList#getName()}.
-	 */
-	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
-	}
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingTypeList#addTestingType(java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	public void testAddTestingType() {
-		fail("Not yet implemented");
+		TestingTypeList list = new TestingTypeList();
+		assertEquals(list.size(), 0);
+		assertTrue(list.isEmpty());
+		
+		//test adding valid type
+		assertTrue(list.addTestingType("Type", "It's a type"));
+		assertEquals(list.getTestingTypeAt(0).getName(), "Type");
+		assertEquals(list.getTestingTypeAt(0).getDescription(), "It's a type");
 	}
 
 	/**
@@ -58,22 +49,6 @@ public class TestingTypeListTest {
 	 */
 	@Test
 	public void testIndexOfName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingTypeList#size()}.
-	 */
-	@Test
-	public void testSize() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.bbtp.model.TestingTypeList#isEmpty()}.
-	 */
-	@Test
-	public void testIsEmpty() {
 		fail("Not yet implemented");
 	}
 
