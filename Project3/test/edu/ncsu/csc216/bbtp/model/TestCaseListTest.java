@@ -6,6 +6,7 @@ package edu.ncsu.csc216.bbtp.model;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.Observable;
 
 import org.junit.Test;
 
@@ -89,8 +90,19 @@ public class TestCaseListTest {
 		
 		//Add valid test case
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
 		
-		//Add valid test case with different date
+		//Add another valid test case
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+		
+		//Add another valid test case
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
+		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+		
 		
 	}
 
@@ -99,7 +111,25 @@ public class TestCaseListTest {
 	 */
 	@Test
 	public void testGetTestCaseAt() {
-		fail("Not yet implemented");
+		TestCaseList list = new TestCaseList("List1", "TCL1");
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		
+		//Get a test case out of bounds (lower)
+		try {
+			list.getTestCaseAt(-1);
+			fail();
+		} catch (IndexOutOfBoundsException e) {
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		}
+		
+		//Get a test case out of bounds (upper)
+		try {
+			list.getTestCaseAt(1);
+			fail();
+		} catch (IndexOutOfBoundsException e) {
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		}
 	}
 
 	/**
@@ -107,7 +137,20 @@ public class TestCaseListTest {
 	 */
 	@Test
 	public void testIndexOf() {
-		fail("Not yet implemented");
+		TestCaseList list = new TestCaseList("List1", "TCL1");
+		
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
+		
+		//Try invalid string
+		assertEquals(list.indexOf("Nope"), -1);
+		
+		//Try null string
+		assertEquals(list.indexOf(null), -1);
+		
+		//Try valid string
+		assertEquals(list.indexOf("TCL1-TC1"), 1);
 	}
 
 	/**
@@ -115,7 +158,34 @@ public class TestCaseListTest {
 	 */
 	@Test
 	public void testRemoveTestCaseAt() {
-		fail("Not yet implemented");
+		TestCaseList list = new TestCaseList("List1", "TCL1");
+		
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
+		
+		//try index out of bounds lower
+		try {
+			list.removeTestCaseAt(-1);
+		} catch (IndexOutOfBoundsException e) {
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
+			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
+			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+		}
+		
+		//try index out of bounds upper
+		try {
+			list.removeTestCaseAt(3);
+		} catch (IndexOutOfBoundsException e) {
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
+			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
+			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+		}
+		
+		//try valid removal
+		assertEquals(list.removeTestCaseAt(1).getTestCaseID(), "TCL1-TC1");
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
 	}
 
 	/**
@@ -123,7 +193,23 @@ public class TestCaseListTest {
 	 */
 	@Test
 	public void testRemoveTestCase() {
-		fail("Not yet implemented");
+		TestCaseList list = new TestCaseList("List1", "TCL1");
+		
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
+		
+		//test removing invalid test
+		assertFalse(list.removeTestCase(null));
+		assertFalse(list.removeTestCase("Nope"));
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
+		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+		
+		//test removing valid test
+		assertTrue(list.removeTestCase("TCL1-TC1"));
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
 	}
 
 	/**
@@ -131,7 +217,21 @@ public class TestCaseListTest {
 	 */
 	@Test
 	public void testGet2DArray() {
-		fail("Not yet implemented");
+		TestCaseList list = new TestCaseList("List1", "TCL1");
+		
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		
+		Object[][] array = list.get2DArray();
+		TestCase testCase = list.getTestCaseAt(0);
+		assertEquals(array[0][0], testCase.getTestCaseID());
+		assertEquals(array[0][1], testCase.getDescription());
+		assertEquals(array[0][2], testCase.getTestingType());
+		assertEquals(array[0][3], testCase.getCreationDateTime());
+		assertEquals(array[0][4], testCase.getLastTestedDateTime());
+		assertEquals(array[0][5], testCase.tested());
+		assertEquals(array[0][6], testCase.getExpectedResults());
+		assertEquals(array[0][7], testCase.getActualResults());
+		assertEquals(array[0][8], testCase.pass());
 	}
 
 	/**
@@ -139,7 +239,13 @@ public class TestCaseListTest {
 	 */
 	@Test
 	public void testUpdate() {
-		fail("Not yet implemented");
+		TestCaseList list = new TestCaseList("List1", "TCL1");
+		
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		Observable o = new Observable();
+		
+		//invalid
+		list.update(o, "String");		
 	}
 
 }
