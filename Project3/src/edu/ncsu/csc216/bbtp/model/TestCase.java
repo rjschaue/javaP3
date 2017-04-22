@@ -72,7 +72,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @throws IllegalArgumentException if the description is null, empty or just blank spaces
 	 */
 	public void setDescription(String description) {
-		if (description == null || description.isEmpty() || description.trim().isEmpty()) {
+		if (description == null || description.trim().equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.description = description;
@@ -94,7 +94,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @throws IllegalArgumentException if the description is null, empty or just blank spaces
 	 */
 	public void setExpectedResults(String expectedResults) {
-		if (expectedResults == null || expectedResults.isEmpty() || expectedResults.trim().isEmpty()) {
+		if (expectedResults == null || expectedResults.trim().equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.expectedResults = expectedResults;
@@ -117,7 +117,7 @@ public class TestCase extends Observable implements Serializable {
 	 */
 	public void setActualResults(String actualResults) {
 		if (testedStatus) {
-			if (actualResults == null || actualResults.isEmpty() || actualResults.trim().isEmpty()) {
+			if (actualResults == null || actualResults.trim().equals("")) {
 				throw new IllegalArgumentException();
 			}
 			this.actualResults = actualResults;
@@ -240,7 +240,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @throws IllegalArgumentException if the id is null or an empty string
 	 */
 	private void setTestCaseID(String id) {
-		if (id == null || id.isEmpty()) {
+		if (id == null || id.trim().equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.testCaseID = id;

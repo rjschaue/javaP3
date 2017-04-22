@@ -50,6 +50,7 @@ public class BBTP extends Observable implements Serializable, Observer {
 		incNextTestCaseListNum();
 		testingTypes = new TestingTypeList();
 		testingTypes.addObserver(this);
+		filename = null;
 		changed = false;
 		numLists = 1;
 	}
@@ -84,7 +85,7 @@ public class BBTP extends Observable implements Serializable, Observer {
 	 * @throws IllegalArgumentException if the filename is null or an empty string
 	 */
 	public void setFilename(String filename) {
-		if (filename == null || filename.isEmpty()) {
+		if (filename == null || filename.trim().isEmpty()) {
 			throw new IllegalArgumentException();
 		}
 		this.filename = filename;
@@ -271,6 +272,7 @@ public class BBTP extends Observable implements Serializable, Observer {
 			testCases[i].update(o, arg);
 		}
 		testingTypes.update(o, arg);
+		setChanged(true);
 	}
 	
 	/**

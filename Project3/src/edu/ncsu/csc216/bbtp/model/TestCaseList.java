@@ -52,7 +52,7 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 	 * @throws IllegalArgumentException if name is null or empty string
 	 */
 	public void setName(String name) {
-		if (name == null || name.isEmpty()) {
+		if (name == null || name.trim().equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.name = name;
@@ -74,7 +74,7 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 	 * @throws IllegalArgumentException if the id is null or empty
 	 */
 	private void setTestCaseListID(String id) {
-		if (id == null || id.isEmpty()) {
+		if (id == null || id.trim().equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.testCaseListID = id;
