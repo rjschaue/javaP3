@@ -121,7 +121,7 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 	 * @throws IllegalArgumentException if the index is less than 0 or greater than size
 	 */
 	public TestingType removeTestingTypeAt(int index) {
-		if (index < 0 || index > size()) {
+		if (index < 0 || index >= size()) {
 			throw new IllegalArgumentException();
 		}
 		TestingType type = (TestingType) list.remove(index);
