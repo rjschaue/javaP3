@@ -320,7 +320,7 @@ public class TestCaseTest {
 		assertTrue(testCase1.equals(testCase1));
 		assertTrue(testCase1.equals(testCase2));
 		assertFalse(testCase1.equals(testCase3));
-		assertFalse(testCase1.equals(null));
+		assertFalse(testCase1 == null);
 		assertFalse(testCase1.equals("String"));
 	}
 

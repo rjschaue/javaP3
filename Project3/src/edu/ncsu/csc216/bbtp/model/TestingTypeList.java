@@ -177,7 +177,7 @@ public class TestingTypeList extends Observable implements Tabular, Serializable
 			array[i][0] = type.getTestingTypeID();
 			array[i][1] = type.getName();
 			array[i][2] = type.getDescription();
-;		}
+		}
 		return array;
 	}
 	

@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * @author Joey
- *
+ * Test class for BBTP
+ * @author Joey Schauer
  */
 public class BBTPTest {
 

@@ -116,7 +116,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @throws IllegalArgumentException if the description is null, empty or just blank spaces
 	 */
 	public void setActualResults(String actualResults) {
-		if (testedStatus == true) {
+		if (testedStatus) {
 			if (actualResults == null || actualResults.isEmpty() || actualResults.trim().isEmpty()) {
 				throw new IllegalArgumentException();
 			}
@@ -161,7 +161,7 @@ public class TestCase extends Observable implements Serializable {
 	 * @param lastTestedDateTime the lastTestedDateTime to set
 	 */
 	public void setLastTestedDateTime(Date lastTestedDateTime) {
-		if (testedStatus == false || testedStatus == true && lastTestedDateTime != null) {
+		if (testedStatus == false || testedStatus && lastTestedDateTime != null) {
 			this.lastTestedDateTime = lastTestedDateTime;
 			setChanged();
 			notifyObservers(this);
