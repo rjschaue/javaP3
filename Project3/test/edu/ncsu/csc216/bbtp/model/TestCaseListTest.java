@@ -98,10 +98,10 @@ public class TestCaseListTest {
 		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
 		
 		//Add another valid test case
-		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
-		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
-		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
 		
 		
 	}
@@ -141,7 +141,7 @@ public class TestCaseListTest {
 		
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
-		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
 		
 		//Try invalid string
 		assertEquals(list.indexOf("Nope"), -1);
@@ -150,7 +150,7 @@ public class TestCaseListTest {
 		assertEquals(list.indexOf(null), -1);
 		
 		//Try valid string
-		assertEquals(list.indexOf("TCL1-TC1"), 1);
+		assertEquals(list.indexOf("TCL1-TC1"), 0);
 	}
 
 	/**
@@ -162,30 +162,30 @@ public class TestCaseListTest {
 		
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
-		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
 		
 		//try index out of bounds lower
 		try {
 			list.removeTestCaseAt(-1);
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
-			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
-			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
 		}
 		
 		//try index out of bounds upper
 		try {
 			list.removeTestCaseAt(3);
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
-			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
-			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
 		}
 		
 		//try valid removal
-		assertEquals(list.removeTestCaseAt(1).getTestCaseID(), "TCL1-TC1");
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
-		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.removeTestCaseAt(0).getTestCaseID(), "TCL1-TC1");
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC3" );
 	}
 
 	/**
@@ -197,19 +197,19 @@ public class TestCaseListTest {
 		
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
-		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, null, ACTUAL_RESULTS, PASS));
+		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
 		
 		//test removing invalid test
 		assertFalse(list.removeTestCase(null));
 		assertFalse(list.removeTestCase("Nope"));
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
-		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
-		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
 		
 		//test removing valid test
 		assertTrue(list.removeTestCase("TCL1-TC1"));
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
-		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC3" );
 	}
 
 	/**

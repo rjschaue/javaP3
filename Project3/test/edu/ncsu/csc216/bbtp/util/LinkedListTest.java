@@ -48,7 +48,14 @@ public class LinkedListTest {
 		assertEquals(list.size(), 0);
 		
 		//Add null object to array
-		assertFalse(list.add(null));
+		try {
+			list.add(null);
+		} catch (NullPointerException e) {
+			assertTrue(list.isEmpty());
+			assertEquals(list.size(), 0);
+		}
+		
+		
 		
 		//Add valid object to array
 		assertTrue(list.add("String0"));

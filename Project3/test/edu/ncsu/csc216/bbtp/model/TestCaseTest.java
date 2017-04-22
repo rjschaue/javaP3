@@ -253,8 +253,11 @@ public class TestCaseTest {
 		assertEquals(testCase.pass(), PASS);
 		
 		//test null date for tested case
-		testCase.setLastTestedDateTime(null);
-		assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		try {
+			testCase.setLastTestedDateTime(null);
+		} catch (IllegalArgumentException e) {
+			assertEquals(testCase.getLastTestedDateTime(), LAST_TESTED_DATE_TIME);
+		}
 		
 		//Test null date for not tested case
 		testCase.setTestedStatus(false);

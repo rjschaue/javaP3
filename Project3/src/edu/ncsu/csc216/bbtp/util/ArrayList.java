@@ -33,7 +33,7 @@ public class ArrayList implements List, Serializable {
 	 * @throws IllegalArgumentException if the size is negative
 	 */
 	public ArrayList(int size) {
-		if (size < 0) {
+		if (size <= 0) {
 			throw new IllegalArgumentException();
 		}
 		list = new Object[size];
@@ -84,7 +84,7 @@ public class ArrayList implements List, Serializable {
 	@Override
 	public boolean add(Object o) {
 		if (o == null) {
-			return false;
+			throw new NullPointerException();
 		}
 		if (contains(o)) {
 			return false;

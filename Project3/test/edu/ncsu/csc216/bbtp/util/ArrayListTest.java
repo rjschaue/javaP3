@@ -58,8 +58,12 @@ public class ArrayListTest {
 		ArrayList list = new ArrayList();
 		
 		//Test adding null object
-		assertFalse(list.add(null));
-		
+		try {
+			list.add(null);
+		} catch (NullPointerException e) {
+			assertTrue(list.isEmpty());
+		}
+	
 		//Test adding valid object
 		assertTrue(list.add("String"));
 		assertFalse(list.isEmpty());

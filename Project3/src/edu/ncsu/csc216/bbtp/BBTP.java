@@ -268,11 +268,9 @@ public class BBTP extends Observable implements Serializable, Observer {
      * @param arg is the object to notify the observable of
      */
 	public void update(Observable o, Object arg) {
-		for (int i = 0; i < numLists; i++) {
-			testCases[i].update(o, arg);
-		}
-		testingTypes.update(o, arg);
 		setChanged(true);
+		setChanged();
+		notifyObservers(arg);
 	}
 	
 	/**

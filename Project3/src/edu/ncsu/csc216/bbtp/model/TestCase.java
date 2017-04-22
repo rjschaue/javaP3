@@ -161,11 +161,12 @@ public class TestCase extends Observable implements Serializable {
 	 * @param lastTestedDateTime the lastTestedDateTime to set
 	 */
 	public void setLastTestedDateTime(Date lastTestedDateTime) {
-		if (testedStatus == false || testedStatus && lastTestedDateTime != null) {
-			this.lastTestedDateTime = lastTestedDateTime;
-			setChanged();
-			notifyObservers(this);
+		if (testedStatus && lastTestedDateTime == null) {
+			throw new IllegalArgumentException();
 		}
+		this.lastTestedDateTime = lastTestedDateTime;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**

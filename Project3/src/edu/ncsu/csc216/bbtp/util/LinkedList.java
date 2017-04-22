@@ -71,7 +71,7 @@ public class LinkedList implements List, Serializable {
 	@Override
 	public boolean add(Object o) {
 		if (o == null) {
-			return false;
+			throw new NullPointerException();
 		}
 		Node newNode = new Node(o, null);
 		if (head == null) {

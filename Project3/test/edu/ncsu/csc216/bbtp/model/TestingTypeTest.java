@@ -130,7 +130,7 @@ public class TestingTypeTest {
 	public void testToString() {
 		TestingType testType1 = new TestingType("T1", "Type1", "Desc1");
 		
-		String toString = "TestingType [name=Type1, description=Desc1, testingTypeID=T1]";
+		String toString = "Type1";
 		
 		assertEquals(testType1.toString(), toString);
 	}
