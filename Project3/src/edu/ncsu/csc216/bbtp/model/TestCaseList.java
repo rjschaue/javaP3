@@ -117,7 +117,7 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 			int index = 0;
 			for (int i = 0; i < size(); i++) {
 				TestCase newCase = (TestCase) list.get(i);
-				if (t.compareTo(newCase) <= 0) {
+				if (t.compareTo(newCase) < 0) {
 					index++;
 				}
 			}

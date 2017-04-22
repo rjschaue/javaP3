@@ -94,14 +94,14 @@ public class TestCaseListTest {
 		
 		//Add another valid test case
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
-		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC2" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
 		
 		//Add another valid test case
 		assertTrue(list.addTestCase(DESCRIPTION, TESTING_TYPE, CREATION_DATE_TIME, EXPECTED_RESULTS, TESTED_STATUS, LAST_TESTED_DATE_TIME, ACTUAL_RESULTS, PASS));
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
 		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
-		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC1" );
 		
 		
 	}
@@ -150,7 +150,7 @@ public class TestCaseListTest {
 		assertEquals(list.indexOf(null), -1);
 		
 		//Try valid string
-		assertEquals(list.indexOf("TCL1-TC1"), 0);
+		assertEquals(list.indexOf("TCL1-TC1"), 2);
 	}
 
 	/**
@@ -168,24 +168,24 @@ public class TestCaseListTest {
 		try {
 			list.removeTestCaseAt(-1);
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
 			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
-			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
+			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC1" );
 		}
 		
 		//try index out of bounds upper
 		try {
 			list.removeTestCaseAt(3);
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+			assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
 			assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
-			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
+			assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC1" );
 		}
 		
 		//try valid removal
-		assertEquals(list.removeTestCaseAt(0).getTestCaseID(), "TCL1-TC1");
+		assertEquals(list.removeTestCaseAt(0).getTestCaseID(), "TCL1-TC3");
 		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC2" );
-		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC1" );
 	}
 
 	/**
@@ -202,14 +202,14 @@ public class TestCaseListTest {
 		//test removing invalid test
 		assertFalse(list.removeTestCase(null));
 		assertFalse(list.removeTestCase("Nope"));
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC1" );
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
 		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
-		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(2).getTestCaseID(), "TCL1-TC1" );
 		
 		//test removing valid test
 		assertTrue(list.removeTestCase("TCL1-TC1"));
-		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC2" );
-		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(0).getTestCaseID(), "TCL1-TC3" );
+		assertEquals(list.getTestCaseAt(1).getTestCaseID(), "TCL1-TC2" );
 	}
 
 	/**
