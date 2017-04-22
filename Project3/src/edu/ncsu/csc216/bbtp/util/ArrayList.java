@@ -78,7 +78,7 @@ public class ArrayList implements List, Serializable {
 
 	/**
 	 * Adds the given object to the array
-	 * @param is the object to add
+	 * @param o is the object to add
 	 * @return true if the object is successfully added
 	 */
 	@Override

@@ -29,12 +29,12 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 	/**
 	 * The constructor for TestCaseList
 	 * @param name the name of the test case list
-	 * @param TestCaseListID the id for the test case list
+	 * @param testCaseListID the id for the test case list
 	 */
-	public TestCaseList(String name, String TestCaseListID) {
+	public TestCaseList(String name, String testCaseListID) {
 		setName(name);
 		nextTestCaseNum = 1;
-		setTestCaseListID(TestCaseListID);
+		setTestCaseListID(testCaseListID);
 		list = new LinkedList();
 	}
 	
@@ -208,16 +208,16 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 	
 	/**
 	 * Removes the test case with the given id
-	 * @param TestCaseID the id of the test case to remove
+	 * @param testCaseID the id of the test case to remove
 	 * @return true if the test case as removed
 	 */
-	public boolean removeTestCase(String TestCaseID) {
-		if (TestCaseID == null) {
+	public boolean removeTestCase(String testCaseID) {
+		if (testCaseID == null) {
 			return false;
 		}
 		for (int i = 0; i < size(); i++) {
 			TestCase testCase = (TestCase) list.get(i);
-			if (testCase.getTestCaseID().equals(TestCaseID)) {
+			if (testCase.getTestCaseID().equals(testCaseID)) {
 				testCase = (TestCase) list.remove(i);
 				setChanged();
 				notifyObservers(this);
@@ -257,6 +257,8 @@ public class TestCaseList extends Observable implements Tabular, Serializable, O
 	
 	/**
 	 * Updates the observers for test case list
+	 * @param o is the observable to update
+	 * @param arg is the object to send over
 	 */
 	public void update(Observable o, Object arg) {
 		if (list.contains(o)) {

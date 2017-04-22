@@ -99,7 +99,7 @@ public class TestingTypeTest {
 		TestingType testType3 = new TestingType("T2", "Type2", "Desc2");
 		
 		//test invalid
-		assertFalse(testType1.equals(null));
+		assertFalse(testType1 == null);
 		assertFalse(testType1.equals("String"));
 		
 		//test equals

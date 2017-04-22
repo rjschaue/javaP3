@@ -83,6 +83,8 @@ public class TestCaseListPane extends JScrollPane implements Serializable, Obser
 	
 	/**
 	 * Updates the observers for the class
+	 * @param o is the observable to update
+	 * @param arg is the object to send over
 	 */
 	public void update(Observable o, Object arg) {
 		if (o instanceof TestCaseList) {

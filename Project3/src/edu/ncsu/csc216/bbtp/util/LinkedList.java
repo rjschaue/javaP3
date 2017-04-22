@@ -93,7 +93,7 @@ public class LinkedList implements List, Serializable {
 	 * Returns the object at the given index in the linked list
 	 * @param index is the index to get the object from
 	 * @return the object at the given index in the linked list
-	 * @throws new IndexOutOfBoundsException if the index is less than 0 or greater than or equal to size
+	 * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to size
 	 */
 	@Override
 	public Object get(int index) {
@@ -202,7 +202,7 @@ public class LinkedList implements List, Serializable {
 	 * Contains an Object and a reference to the next Node in the List
 	 * @author Joey Schauer
 	 */
-	private class Node implements Serializable{
+	private class Node implements Serializable {
 		/** the serial version UID for Node */
 		private static final long serialVersionUID = 484909840L;
 		/** the object value for the Node */
