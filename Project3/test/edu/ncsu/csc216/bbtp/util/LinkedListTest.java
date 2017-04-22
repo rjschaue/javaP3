@@ -55,12 +55,17 @@ public class LinkedListTest {
 			assertEquals(list.size(), 0);
 		}
 		
-		
-		
 		//Add valid object to array
 		assertTrue(list.add("String0"));
 		assertTrue(list.contains("String0"));
 		assertEquals(list.get(0), "String0");
+		
+		//Add a duplicate object to array
+		try {
+			list.add("String0");
+		} catch (IllegalArgumentException e) {
+			assertEquals(list.size(), 1);
+		}
 		
 		//Add another object to array
 		assertTrue(list.add("String1"));

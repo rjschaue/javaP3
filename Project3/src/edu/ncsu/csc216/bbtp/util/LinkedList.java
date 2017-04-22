@@ -73,6 +73,9 @@ public class LinkedList implements List, Serializable {
 		if (o == null) {
 			throw new NullPointerException();
 		}
+		if (contains(o)) {
+			throw new IllegalArgumentException();
+		}
 		Node newNode = new Node(o, null);
 		if (head == null) {
 			head = newNode;

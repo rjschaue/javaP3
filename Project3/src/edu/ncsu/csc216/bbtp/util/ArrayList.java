@@ -87,7 +87,7 @@ public class ArrayList implements List, Serializable {
 			throw new NullPointerException();
 		}
 		if (contains(o)) {
-			return false;
+			throw new IllegalArgumentException();
 		}
 		list[size] = o;
 		size++;

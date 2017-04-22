@@ -117,7 +117,7 @@ public class TestingTypeListTest {
 		try {
 			list.removeTestingTypeAt(-1);
 			fail();
-		} catch (IllegalArgumentException e) {
+		} catch (IndexOutOfBoundsException e) {
 			assertEquals(list.size(), 1);
 		}
 		
@@ -125,7 +125,7 @@ public class TestingTypeListTest {
 		try {
 			list.removeTestingTypeAt(1);
 			fail();
-		} catch (IllegalArgumentException e) {
+		} catch (IndexOutOfBoundsException e) {
 			assertEquals(list.size(), 1);
 		}
 		

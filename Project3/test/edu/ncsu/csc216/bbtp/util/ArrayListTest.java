@@ -69,7 +69,12 @@ public class ArrayListTest {
 		assertFalse(list.isEmpty());
 		
 		//Test adding duplicate object
-		assertFalse(list.add("String"));
+		try {
+			list.add("String");
+		} catch (IllegalArgumentException e) {
+			assertEquals(list.size(), 1);
+		}
+		
 		
 		//Test growing array
 		for (int i = 0; i < 10; i++) {
